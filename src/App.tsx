@@ -26,8 +26,8 @@ function App() {
         <Route path="/lotto" element={<HenryyLotto />} />
         <Route path="/original" element={<HenryyOriginal />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
