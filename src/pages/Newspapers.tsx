@@ -5,6 +5,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { checkAdmin } from "../services/authService";
 import { addNewspaper, getNewspapers } from "../services/newsService";
 import { Newspaper } from "../types";
+import { fetchList } from "../services/firestoreService";
+
+useEffect(() => {
+  fetchList("newspapers").then(data => setNewspapers(data));
+}, []);
 
 function Newspapers() {
   const [isAdmin, setIsAdmin] = useState(false);
