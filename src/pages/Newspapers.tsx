@@ -3,13 +3,9 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { checkAdmin } from "../services/authService";
-import { addNewspaper, getNewspapers } from "../services/newsService";
+import { addNewspaper } from "../services/newsService";
 import { Newspaper } from "../types";
 import { fetchList } from "../services/firestoreService";
-
-useEffect(() => {
-  fetchList("newspapers").then(data => setNewspapers(data));
-}, []);
 
 function Newspapers() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -17,17 +13,24 @@ function Newspapers() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
+  // Hae lehdet kun komponentti mounttaa
+  useEffect(() => {
+    fetchList("newspapers").then((data) => setNewspapers(data));
+  }, []);
+
+  // Tarkista käyttäjän admin-oikeudet ja hae lehdet kirjautuessa
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         checkAdmin(user.uid).then((admin) => setIsAdmin(admin));
       } else {
-        setIsAdmin(false); // ei kirjautunut
+        setIsAdmin(false);
       }
-      fetchList(); // hae lehdet joka tapauksessa
+      // Hae lehdet joka tapauksessa
+      fetchList("newspapers").then((data) => setNewspapers(data));
     });
 
-    return () => unsubscribe(); // siivoaa listenerin kun komponentti unmounttaa
+    return () => unsubscribe();
   }, []);
 
   // Lisää uusi lehti (vain admin)
@@ -36,7 +39,8 @@ function Newspapers() {
       await addNewspaper({ name, description });
       setName("");
       setDescription("");
-      fetchList();
+      const data = await fetchList("newspapers");
+      setNewspapers(data);
     }
   };
 
@@ -76,3 +80,4 @@ function Newspapers() {
 }
 
 export default Newspapers;
+
