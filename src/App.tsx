@@ -18,8 +18,8 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar /> {/* navigointipalkki kaikilla sivuilla */}
+         <Balance />
       <Routes>
-        <Balance />
         <Route path="/" element={<Newspapers />} />
         <Route path="/articles" element={<Articles />} />
         <Route path="/polls" element={<Polls />} />
