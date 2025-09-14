@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Balance from "./components/Balance";
 
+import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Newspapers from "./pages/Newspapers";
 import Articles from "./pages/Articles";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/lotto" element={<HenryyLotto />} />
         <Route path="/original" element={<HenryyOriginal />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
