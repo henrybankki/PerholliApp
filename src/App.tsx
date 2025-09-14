@@ -11,6 +11,9 @@ import Articles from "./pages/Articles";
 import Polls from "./pages/Polls";
 import HenryyLotto from "./pages/HenryyLotto";
 import HenryyOriginal from "./pages/HenryyOriginal";
+// src/App.tsx
+import Admin from "./pages/Admin"; // <--- iso A
+
 
 function App() {
   return (
