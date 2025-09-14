@@ -1,59 +1,40 @@
 // src/pages/Register.tsx
 import React, { useState } from "react";
+import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { auth, db } from "../firebase";
-import { useNavigate } from "react-router-dom";
 
-const Register: React.FC = () => {
+function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleRegister = async () => {
     try {
-      // Luo käyttäjä Firebase Authiin
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      // Luo käyttäjän dokumentti Firestoreen ja aseta alkuperäinen saldo 10€
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        balance: 10
-      });
-
-      // Ohjaa kirjautumissivulle tai pääsivulle
-      navigate("/login");
-    } catch (err: any) {
-      setError(err.message);
-      console.error(err);
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert("Rekisteröinti onnistui!");
+    } catch (e: any) {
+      setError(e.message);
     }
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "auto", padding: "2rem" }}>
+    <div>
       <h2>Rekisteröidy</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
       <input
-        type="email"
         placeholder="Sähköposti"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        style={{ width: "100%", marginBottom: "1rem", padding: "0.5rem" }}
+        onChange={e => setEmail(e.target.value)}
       />
       <input
-        type="password"
         placeholder="Salasana"
+        type="password"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        style={{ width: "100%", marginBottom: "1rem", padding: "0.5rem" }}
+        onChange={e => setPassword(e.target.value)}
       />
-      <button onClick={handleRegister} style={{ width: "100%", padding: "0.5rem" }}>
-        Rekisteröidy
-      </button>
+      <button onClick={handleRegister}>Rekisteröidy</button>
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
-};
+}
 
 export default Register;
