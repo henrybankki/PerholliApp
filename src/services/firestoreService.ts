@@ -1,7 +1,9 @@
+// src/services/firestoreService.ts
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
 
 export const fetchList = async (collectionName: string) => {
-  const snap = await getDocs(collection(db, collectionName));
-  return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  const q = query(collection(db, collectionName), orderBy("name"));
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
