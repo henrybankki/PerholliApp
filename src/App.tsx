@@ -19,7 +19,6 @@ function App() {
     <BrowserRouter>
       <NavBar /> {/* navigointipalkki kaikilla sivuilla */}
       <Routes>
-        <h2>Oma saldo</h2>
         <Balance />
         <Route path="/" element={<Newspapers />} />
         <Route path="/articles" element={<Articles />} />
