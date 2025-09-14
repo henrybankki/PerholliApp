@@ -16,12 +16,15 @@ function App() {
     <BrowserRouter>
       <NavBar /> {/* navigointipalkki kaikilla sivuilla */}
       <Routes>
+        <h2>Oma saldo</h2>
+        <Balance />
         <Route path="/" element={<Newspapers />} />
         <Route path="/articles" element={<Articles />} />
         <Route path="/polls" element={<Polls />} />
         <Route path="/lotto" element={<HenryyLotto />} />
         <Route path="/original" element={<HenryyOriginal />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );
