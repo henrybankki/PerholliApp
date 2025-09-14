@@ -15,7 +15,7 @@ function Newspapers() {
 
   // Hae lehdet kun komponentti mounttaa
   useEffect(() => {
-    fetchList("newspapers").then((data) => setNewspapers(data));
+    fetchList("newspapers").then(data => setNewspapers(data));
   }, []);
 
   // Tarkista käyttäjän admin-oikeudet ja hae lehdet kirjautuessa
