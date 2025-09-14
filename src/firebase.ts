@@ -10,9 +10,11 @@ const firebaseConfig = {
   storageBucket: "outilehti-10cb9.firebasestorage.app",
   messagingSenderId: "962840932485",
   appId: "1:962840932485:web:0def637d1e80006176b9ec"
+    };
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app); // <--- TÄRKEÄ
 
 export default app;
+
 
